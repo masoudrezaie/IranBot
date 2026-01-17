@@ -31,8 +31,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ====== 4️⃣ Function to generate tweet from ChatGPT ======
 async def generate_tweet(update: Update, context: ContextTypes.DEFAULT_TYPE):
     topic = update.message.text
-
-    # Pick a random style to reduce repetition
     styles = ["informative", "analytical", "neutral", "serious"]
     style = random.choice(styles)
 
@@ -44,13 +42,14 @@ Include 1-3 relevant hashtags.
 Topic: {topic}
 Language: English
 """
+
     try:
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+        response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=80
         )
-
         tweet = response.choices[0].message.content.strip()
         await update.message.reply_text(tweet)
     except Exception as e:
