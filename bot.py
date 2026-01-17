@@ -46,17 +46,17 @@ Language: English
 """
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-5-nano",  # you can also use gpt-3.5-turbo
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=80
-        )
+    response = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=80
+    )
 
-        tweet = response.choices[0].message.content.strip()
-        await update.message.reply_text(tweet)
-    except Exception as e:
-        await update.message.reply_text("⚠️ Error generating tweet. Try again later.")
-        print("OpenAI API error:", e)
+    tweet = response.choices[0].message.content.strip()
+    await update.message.reply_text(tweet)
+except Exception as e:
+    await update.message.reply_text(f"⚠️ Error: {e}")
+    print("OpenAI API error:", e)
 
 # ====== 5️⃣ Run the bot ======
 if __name__ == "__main__":
