@@ -44,19 +44,18 @@ Include 1-3 relevant hashtags.
 Topic: {topic}
 Language: English
 """
-
     try:
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=80
-    )
+        response = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=80
+        )
 
-    tweet = response.choices[0].message.content.strip()
-    await update.message.reply_text(tweet)
-except Exception as e:
-    await update.message.reply_text(f"⚠️ Error: {e}")
-    print("OpenAI API error:", e)
+        tweet = response.choices[0].message.content.strip()
+        await update.message.reply_text(tweet)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error: {e}")
+        print("OpenAI API error:", e)
 
 # ====== 5️⃣ Run the bot ======
 if __name__ == "__main__":
