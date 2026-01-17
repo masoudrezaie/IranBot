@@ -47,7 +47,7 @@ Language: English
 
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",  # you can also use gpt-3.5-turbo
+            model="gpt-5-nano",  # you can also use gpt-3.5-turbo
             messages=[{"role": "user", "content": prompt}],
             max_tokens=80
         )
